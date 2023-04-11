@@ -15,19 +15,11 @@ set(0, 'DefaultFigureRenderer', 'painters')
 GLM_restrict = 0; % 1 yes, 0 no
 last_block = 4; % if yes indicate last block
 
-Brain_region = 'mPFC';
+        %Chose genotype
+        Genotype = 'All';
 
 % Allen Brain Atlas regions to count the units
-if strcmp(Brain_region,'mPFC')
-    Tasks = {'Passive','Context','Aversion','Opto'}; %,'Detection'
-    %Regions = {'ACAd','PL','ILA','ORBm'};
-    Regions = {'MOs','ACAd','ACAv','PL','ILA','ORBm','ORBvl','ORBl'};
-    %Regions = {'MOs','ACAd','ACAv','PL','ILA','ORBm','ORBvl','ORBl','STR','CP','ACB','LS','SH','AON','OLF','DP','TT'};
-elseif strcmp(Brain_region,'Aud')
-    Tasks = {'Passive','Context'}; %,'Detection'
-    Regions = {'AUDp','AUDd','AUDpo','AUDv'}; %
-    %Regions = {'AUDd1','AUDd2/3','AUDd4','AUDd5','AUDd6a','AUDd6b'}; %
-end
+Regions = {'ACAd','PL','ILA','ORBm'};
 
 % binning window
 bin_sz = 0.1; % in seconds
@@ -39,25 +31,20 @@ MIN_ISI = 0.01; % less than 1% of ISI violations
 MIN_FR = 0.1; % mean session FR above 0.1Hz
 
 % Task
-Task = 'Context'; %'Passive','Context','Aversion'
+Task = 'Aversion'; 
 
 % Your path to the Database
-Path2Data = ['/Volumes/T7/LeMerre_dataset/' Brain_region '/'];
-
-Path = [Path2Data Task filesep];
-D = dir([Path '*.nwb']);
+Path2Data = Path2Data = '/Volumes/labs/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
+D = dir([Path2Data '*.nwb']);
 
 % Your path to analysis folder
-Path2Ana = '/Users/pierre/Documents/MATLAB/Code_10122021/neuropixelPFC/Matlab/analysis/';
+Path2Ana = '/Users/pielem/Documents/MATLAB/neuropixelPFC/Matlab/analysis/';
 
 % Randomization
 nboot = 1000; % nb of surrogate data
 
 % files to plot
-if strcmp(Brain_region,'mPFC')
-    if strcmp(Task,'Aversion')
-        %Chose genotype
-        Genotype = 'All';
+
         if strcmp(Genotype,'NPY')
             f_start = 1;
             f_stop = 5;
@@ -68,35 +55,26 @@ if strcmp(Brain_region,'mPFC')
             f_start = 11;
             f_stop = 15;
         elseif strcmp(Genotype,'Esr-retro')
-            f_start = 16;
-            f_stop = 20;
+            f_start = 22;
+            f_stop = 26;
         elseif strcmp(Genotype,'Esr-antero')
-            f_start = 21;
-            f_stop = 25;
+            f_start = 27;
+            f_stop = 31;
         elseif strcmp(Genotype,'Esr')
-            f_start = 16;
-            f_stop = 25;
+            f_start = 22;
+            f_stop = 31;
         elseif strcmp(Genotype,'All')
             f_start = 1;
-            f_stop = 25;
+            f_stop = 31;
         end
-    elseif strcmp(Task,'Detection')
-        f_start = 1;
-        f_stop = numel(D);
-    else
-        f_start = 1;
-        f_stop = numel(D);
-    end
-else
-    
-    f_start = 1;
-    f_stop = numel(D);
-    
-end
+   
 
 for f = f_start : f_stop
     
-      
+    if strcmp(Genotype,'All') && 15<f && f<22
+
+    else
+
     % Read nwb file
     nwb = nwbRead([Path D(f).name]);
     % get id and recording duration from meta file
@@ -154,47 +132,17 @@ for f = f_start : f_stop
     isi_perc = isi./spk_number;
     
     % Get mean session FR
-    load(['/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/analysis/Mean_FR/' D(f).name '_fr.mat'])
+    load(['/Users/pielem/Documents/MATLAB/neuropixelPFC/Matlab/analysis/Mean_FR/' D(f).name '_fr.mat'])
     mean_session_fr = firing_rates;
     
     % behavioral signals for the task
-    if strcmp(Task,'Passive')
+   
         load([Path2Ana 'Binned_FR/' nwb.general_session_id  '_binned_fr.mat'])
-        %load([Path2Ana 'Binned_pupil/' nwb.general_session_id  '_binned_pupil.mat'])
-        %load([Path2Ana 'Binned_blink/' nwb.general_session_id  '_binned_blink.mat'])
         load([Path2Ana 'Binned_sounds/' nwb.general_session_id  '_binned_sounds_pure.mat'])
         load([Path2Ana 'Binned_sounds/' nwb.general_session_id  '_binned_sounds_blue.mat'])
-        load([Path2Ana 'Binned_EMG/' nwb.general_session_id  '_binned_EMG.mat'])
-        %load([Path2Ana 'Binned_face/' nwb.general_session_id  '_binned_face1.mat'])
-        %load([Path2Ana 'Binned_face/' nwb.general_session_id  '_binned_face2.mat'])
-        %load([Path2Ana 'Binned_face/' nwb.general_session_id  '_binned_face3.mat'])
-        
-    elseif strcmp(Task,'Context')
-        load([Path2Ana 'Binned_FR/' nwb.general_session_id  '_binned_fr.mat'])
-        %load([Path2Ana 'Binned_pupil/' nwb.general_session_id  '_binned_pupil.mat'])
-        %load([Path2Ana 'Binned_blink/' nwb.general_session_id  '_binned_blink.mat'])
-        load([Path2Ana 'Binned_sounds/' nwb.general_session_id  '_binned_sounds_pure.mat'])
-        load([Path2Ana 'Binned_EMG/' nwb.general_session_id  '_binned_EMG.mat'])
-        %load([Path2Ana 'Binned_face/' nwb.general_session_id  '_binned_face1.mat'])
-        %load([Path2Ana 'Binned_face/' nwb.general_session_id  '_binned_face2.mat'])
-        %load([Path2Ana 'Binned_face/' nwb.general_session_id  '_binned_face3.mat'])
-        load([Path2Ana 'Binned_lick/' nwb.general_session_id  '_binned_lick.mat'])
-        load([Path2Ana 'Binned_valv/' nwb.general_session_id  '_binned_valv.mat'])
-        load([Path2Ana 'Binned_wn/' nwb.general_session_id  '_binned_wn.mat'])
-        
-    elseif strcmp(Task,'Aversion')
-        load([Path2Ana 'Binned_FR/' nwb.general_session_id  '_binned_fr.mat'])
-        %load([Path2Ana 'Binned_pupil/' nwb.general_session_id  '_binned_pupil.mat'])
-        %load([Path2Ana 'Binned_blink/' nwb.general_session_id  '_binned_blink.mat'])
-        load([Path2Ana 'Binned_sounds/' nwb.general_session_id  '_binned_sounds_pure.mat'])
-        load([Path2Ana 'Binned_sounds/' nwb.general_session_id  '_binned_sounds_blue.mat'])
-        %load([Path2Ana 'Binned_EMG/' nwb.general_session_id  '_binned_EMG.mat'])
-        %load([Path2Ana 'Binned_face/' nwb.general_session_id  '_binned_face1.mat'])
-        %load([Path2Ana 'Binned_face/' nwb.general_session_id  '_binned_face2.mat'])
-        %load([Path2Ana 'Binned_face/' nwb.general_session_id  '_binned_face3.mat'])
         load([Path2Ana 'Binned_airpuff/' nwb.general_session_id  '_binned_airpuff_long.mat'])
         load([Path2Ana 'Binned_opto/' nwb.general_session_id  '_binned_opto.mat'])
-    end
+
     
     
     %% Restrict GLM
@@ -202,9 +150,7 @@ for f = f_start : f_stop
     t = linspace(1,rec_dur,round(rec_dur/bin_sz));
     
     if GLM_restrict
-        
-        
-        
+                       
         blocks = nwb.intervals_trials.vectordata.get('Block').data.load();
         bb = find(blocks==last_block+1,1,'first');
         trial_ts = nwb.intervals_trials.start_time.data.load();
@@ -216,80 +162,18 @@ for f = f_start : f_stop
         spk_cnt = spk_cnt(:,1:stop_bin);
         sound_bin = sound_bin(1:stop_bin);
         sound_bin2 = sound_bin2(1:stop_bin);
-        %pupil_bin = pupil_bin(1:stop_bin);
-        %emg_bin = emg_bin(1:stop_bin);
         opto_bin = opto_bin(1:stop_bin);
         air_bin = air_bin(1:stop_bin);
-        
-        % combine to get interaction
-        %sound_opto_bin = sound_bin + opto_bin;
-        %sound2_air_bin = sound_bin2 + air_bin;
-        %opto_air_bin = opto_bin + air_bin;
         
     end
     
     %% Previsualize
     fig1 = figure;
     
-    if strcmp(Task,'Passive')
-        ax1 = subplot(6,1,1:2);
-        imagesc(t,'CData',spk_cnt)
-        caxis([0, 10])
-        title('firing rate')
-        colormap(flipud(gray))
-        ylabel('units')
+   
+
         
-        ax2 = subplot(6,1,3);
-        plot(mean(spk_cnt),'r')
-        title('population rate')
-        
-        ax3 = subplot(6,1,4);
-        plot(sound_bin,'k')
-        hold on
-        plot(sound_bin2,'b')
-        title('Sounds')
-        
-        ax4 = subplot(6,1,5);
-        plot(emg_bin,'k')
-        title('EMG')
-                
-        linkaxes([ax1,ax2,ax3,ax4],'x')
-        
-    elseif strcmp(Task,'Context')
-        ax1 = subplot(8,1,1:2);
-        imagesc(t,'CData',spk_cnt)
-        caxis([0, 10])
-        title('firing rate')
-        colormap(flipud(gray))
-        ylabel('units')
-        
-        ax2 = subplot(8,1,3);
-        plot(mean(spk_cnt),'r')
-        title('population rate')
-        
-        ax3 = subplot(8,1,4);
-        plot(sound_bin,'k')
-        title('Sounds')
-        
-        ax4 = subplot(8,1,5);
-        plot(emg_bin,'k')
-        title('EMG')
-        
-        ax5 = subplot(8,1,6);
-        plot(lick_bin,'k')
-        title('Lick')
-        
-        ax6 = subplot(8,1,7);
-        plot(valv_bin,'k')
-        title('Valve')
-        
-        ax7 = subplot(8,1,8);
-        plot(wn_bin,'k')
-        title('White Noise')
-                
-        linkaxes([ax1,ax2,ax3,ax4,ax5,ax6,ax7],'x')
-        
-    elseif strcmp(Task,'Aversion')
+  
         ax1 = subplot(6,1,1:2);
         imagesc(t,'CData',spk_cnt)
         caxis([0, 10])
@@ -316,7 +200,7 @@ for f = f_start : f_stop
         title('Opto')
         
         linkaxes([ax1,ax2,ax3,ax4,ax5],'x')
-    end
+
     sgtitle('Data and predictors')
     
     
@@ -326,23 +210,17 @@ for f = f_start : f_stop
     opts.MaxIter = 1000; % default value for glmfit is 100, we increase it here to 1000.
 
     
-    if strcmp(Task,'Passive')
-        n_predictors = 3;
-        X = [sound_bin' sound_bin2' emg_bin']; %predictors n by p of p predictors %pupil_bin' emg_bin'
-    elseif strcmp(Task,'Context')
-        n_predictors = 5;
-        X = [sound_bin' emg_bin' lick_bin' valv_bin' wn_bin']; %predictors n by p of p predictors %pupil_bin' emg_bin'
-    elseif strcmp(Task,'Aversion')
+
         n_predictors = 4;
         X = [sound_bin' opto_bin' sound_bin2' air_bin']; %predictors n by p of p predictors %pupil_bin' emg_bin'
-    end
+
     
     distr = 'poisson'; % Poisson link function
     t = nan(nboot+1,size(spk_cnt,1),n_predictors+1);
     p = nan(nboot+1,size(spk_cnt,1),n_predictors+1);
     beta = nan(nboot+1,size(spk_cnt,1),n_predictors+1);
     
-    if ~(exist([Path2Ana 'GLM/' nwb.general_session_id  '.mat'],'file')==2)
+    if ~(exist([Path2Ana 'GLM2/' nwb.general_session_id  '.mat'],'file')==2)
         
         for ii = 1:nboot+1
             disp(num2str(ii))
@@ -386,11 +264,11 @@ for f = f_start : f_stop
         end
         
         % Save GLM output
-        save([Path2Ana 'GLM/' nwb.general_session_id  '.mat'],'beta','t','p')
+        save([Path2Ana 'GLM2/' nwb.general_session_id  '.mat'],'beta','t','p')
         disp(['GLM output saved in ' Path2Ana])
         
     else
-        load([Path2Ana 'GLM/' nwb.general_session_id  '.mat'])
+        load([Path2Ana 'GLM2/' nwb.general_session_id  '.mat'])
         
     end
     
@@ -502,6 +380,6 @@ for f = f_start : f_stop
         set(gcf,'units','points','position',[600,1200,1920,450])
     end
     
-    
+    end 
 end
 
