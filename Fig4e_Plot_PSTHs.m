@@ -15,7 +15,7 @@ P = [];
 G = [];
 
 % Genotype
-genotype2plot = 'All'; %'All', 'WT', 'VGlut2', 'NPY', 'Esr'
+genotype2plot = 'Esr'; %'All', 'WT', 'VGlut2', 'NPY', 'Esr'
 
 % Restrict unit type
 Unit2plot = 'All'; % 'FS','RS' or 'All'
@@ -29,14 +29,15 @@ HexColors = {'#FECEA8','#FF847C','#6C5B7B','#355C7D'};
 Task = 'Aversion';
 
 % Your path to the Database
-Path2Data = '/Volumes/labs/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
+Path2Data = '/Volumes/T7/NPX_Database/mPFC/Aversion/';
 D = dir([Path2Data '*.nwb']);
 
 % Your path to analysis folder
-Path2Ana = '/Users/pielem/Documents/MATLAB/neuropixelPFC/Matlab/analysis/';
+BasePath = '/Users/pierre/Documents/MATLAB/';
+Path2Ana = [BasePath 'neuropixelPFC/Matlab/analysis/'];
 
 % Load colormaps
-load('/Users/pielem/Documents/MATLAB/Esr1_NPX_code/utilities/Colormaps/sd_colormap.mat')
+load([BasePath 'Esr1_NPX_code/utilities/Colormaps/sd_colormap.mat'])
 
 % Min ISI violation rate
 MIN_ISI = 0.01; % less than 1% of ISI violations
@@ -46,10 +47,6 @@ MIN_FR = 0.1; % mean session FR above 0.1Hz
 
 % number of block to plot
 Block_nb = 4;
-
-% Save figure
-Fig_save = 0;
-FigPath = '/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission';
 
 % Trial per condition
 Trial_per_condition = 50;
@@ -67,13 +64,13 @@ elseif strcmp(Genotype,'WT')
     f_start = 11;
     f_stop = 15;
 elseif strcmp(Genotype,'Esr-retro')
-    f_start = 21;
+    f_start = 22;
     f_stop = 26;
 elseif strcmp(Genotype,'Esr-antero')
     f_start = 27;
     f_stop = 31;
 elseif strcmp(Genotype,'Esr')
-    f_start = 21;
+    f_start = 22;
     f_stop = 31;
 elseif strcmp(Genotype,'All')
     f_start = 1;
@@ -189,7 +186,7 @@ for f = f_start : f_stop % Loop through mice
 
 
         % Get mean session FR
-        load(['/Users/pielem/Documents/MATLAB/neuropixelPFC/Matlab/analysis/Mean_FR/' D(f).name '_fr.mat'])
+        load([BasePath 'neuropixelPFC/Matlab/analysis/Mean_FR/' D(f).name '_fr.mat'])
         mean_session_fr = firing_rates;
 
         % PSTH Loop
@@ -281,9 +278,9 @@ for f = f_start : f_stop % Loop through mice
         eval(['P.mouse' num2str(CNT) '= PSTH_B;'])
         eval(['G.mouse' num2str(CNT) '= GK_B;'])
         CNT = CNT + 1;
-    end % end of mouse loop
+    end 
 
-end %end of Task loop
+end % end of mouse loop
 
 
 %% Plotting
@@ -368,7 +365,7 @@ for b = 1:Block_nb % loop over blocks
     colormap(sd_colormap);
     c=colorbar('southoutside');
     c.Label.String = 'Firing rate (sd)';
-    clim([-3.5, 3.5]);
+    caxis([-3.5, 3.5]);
     set(gcf,'units','points','position',[0,900,Block_nb*200,900])
 end
 
@@ -382,16 +379,10 @@ for i = 1:numel(Regions)
     end
 end
 
-if strcmp(Task,'Aversion')
     sgtitle(['PSTH, Aversion ' Genotype ' (n = ' num2str(sum(units_per_region)) ' ' Unit2plot ' units)'])
-else
-    sgtitle(['PSTH, ' Task ' (n = ' num2str(sum(units_per_region)) ' ' Unit2plot ' units)'])
-end
 
 
-if Fig_save==1
-    saveas(fig1,[FigPath '/' Genotype '_' Unit2plot '_units_HM_modulated_units'],'epsc');
-end
+
 
 
 % psth
@@ -442,16 +433,10 @@ for b = 1:Block_nb % loop over blocks
         end
         offset = offset - 10;
 
-        if strcmp(Task,'Opto')  || strcmp(Task,'Context') || strcmp(Task,'Passive')
-            line([0 0],ylim,'LineWidth',1,'Color',[0 0 0])
-        elseif strcmp(Task,'Aversion')
+
             if b==1 || b==2 || b==3 || b==4
                 line([0 0],ylim,'LineWidth',1,'Color',[0 0 0])
             end
-            if b==2 || b==4 || b==5 || b==6 || b==7 || b==8
-                line([0.7 0.7],ylim,'LineWidth',1,'Color',[0 0 0])
-            end
-        end
 
     end
 
@@ -462,9 +447,7 @@ end
     sgtitle(['PSTH, Aversion ' Genotype ' (n = ' num2str(sum(units_per_region)) ' ' Unit2plot ' units)'])
 
 total_per_region = sum(ISregion_mtrx,1);
-    if Fig_save==1
-        saveas(fig2,[FigPath '/' Genotype '_' Unit2plot '_units_PSTH_modulated_units'],'epsc');
-    end
+
 
 % make table with all values
 % PFC_Regions =  Regions;
@@ -483,9 +466,6 @@ xlabel('Regions');
 ylabel('Number of units');
     title(['Units per PFC region (n = ' num2str(sum(units_per_region)) '_' Unit2plot ' units)'])
 set(gcf,'units','points','position',[1600,1000,550,420])
-if Fig_save==1
-        saveas(fig3,[FigPath '/' Genotype '_' Unit2plot '_unit-count'],'epsc');
-end
 
 
 %% Latency close up
@@ -537,11 +517,9 @@ for b = 1:Block_nb % loop over blocks
     xlabel('time (s)')
     set(gcf,'units','points','position',[0,0,Block_nb*400,450])
 end
-if strcmp(Task,'Aversion')
+
     sgtitle(['PSTH, Aversion ' Genotype ' (n = ' num2str(sum(units_per_region)) ' units)'])
-else
-    sgtitle(['PSTH, ' Task ' (n = ' num2str(sum(units_per_region)) ' units)'])
-end
+
 
 
 
