@@ -15,7 +15,7 @@ P = [];
 G = [];
 
 % Genotype
-genotype2plot = 'Esr'; %'All', 'WT', 'VGlut2', 'NPY', 'Esr'
+genotype2plot = 'All'; %'All', 'WT', 'VGlut2', 'NPY', 'Esr'
 
 % Restrict unit type
 Unit2plot = 'All'; % 'FS','RS' or 'All'
@@ -29,12 +29,13 @@ HexColors = {'#FECEA8','#FF847C','#6C5B7B','#355C7D'};
 Task = 'Aversion';
 
 % Your path to the Database
-Path2Data = '/Volumes/T7/NPX_Database/mPFC/Aversion/';
+Path2Data = '/Volumes/labs-1/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
+%Path2Data = '/Volumes/T7/NPX_Database/mPFC/Aversion/';
 D = dir([Path2Data '*.nwb']);
 
 % Your path to analysis folder
 BasePath = '/Users/pierre/Documents/MATLAB/';
-Path2Ana = [BasePath 'neuropixelPFC/Matlab/analysis/'];
+%Path2Ana = [BasePath 'neuropixelPFC/Matlab/analysis/'];
 
 % Load colormaps
 load([BasePath 'Esr1_NPX_code/utilities/Colormaps/sd_colormap.mat'])
@@ -186,7 +187,7 @@ for f = f_start : f_stop % Loop through mice
 
 
         % Get mean session FR
-        load([BasePath 'neuropixelPFC/Matlab/analysis/Mean_FR/' D(f).name '_fr.mat'])
+        load([BasePath 'Esr1_NPX_code/analysis/Mean_FR/' D(f).name '_fr.mat'])
         mean_session_fr = firing_rates;
 
         % PSTH Loop

@@ -904,144 +904,144 @@ set(gcf,'units','points','position',[1200,800,400,1600])
 
 %% plot anat for cluster
 
-% if plot_anat
-%     
-%     [av,tv,st] = get_Allen_Data;
-%     bregma = allenCCFbregma;
-%     bregma=[bregma(1) bregma(3) bregma(2)];
-%     
-%     figure;
-%     [im] = plotAPSlice(bregma(1)-220,av,tv,st);
-%     hh1 = imagesc(im);
-%     colormap(cmap_allen)
-%     freezeColors
-%     g=get(hh1);
-%     imwrite (g.CData, '/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/coronal.png');
-%     close
-%     
-%     
-%     figure;
-%     [imm] = plotMLSlice(bregma(2)+30,av,tv,st);
-%     hh3 = imagesc(imm);
-%     colormap(cmap_allen)
-%     freezeColors
-%     g2=get(hh3);
-%     imwrite (g2.CData, '/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/sagital.png');
-%     close
-%     
-%     
-%     
-%     for cc = 1 : 10
-%         %cc = 1
-%         figure
-%         clu2plot = outperm(cc);
-%         cnt = 1;
-%         
-%         for gg = 1:4
-%             log1 = genotype_all==gg;
-%             log2 = T==clu2plot;
-%             log2 = log2';
-%             ap2plot = bregma(1)+AP(log2 & log1).*100;
-%             ml2plot = bregma(2)-ML(log2 & log1).*100;
-%             dv2plot = abs(bregma(3)-DV(log2 & log1).*100);
-%             if gg==1
-%                 load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_WT.mat');
-%             elseif gg==2
-%                 load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_VGlut2.mat');
-%             elseif gg==3
-%                 load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_NPY.mat');
-%             elseif gg==4
-%                 load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_Esr.mat');
-%             end
-%             
-%             % Make heat map
-%             %coronal
-%             x=zeros(size(av,2),size(av,3));
-%             for j = 1:size(av,3)
-%                 for i = 1:size(av,2)
-%                     temp_ij=find((round(ml2plot)==j) & (round(dv2plot)==i));
-%                     if numel(temp_ij)==1
-%                         x(i,j)=1;
-%                     elseif numel(temp_ij)>1
-%                         x(i,j)=1;
-%                     end
-%                 end
-%             end
-%             
-%             %sagital
-%             y=zeros(size(av,2),size(av,1));
-%             for j = 1:size(av,1)
-%                 for i = 1:size(av,2)
-%                     temp_ij=find((round(ap2plot)==j) & (round(dv2plot)==i));
-%                     if numel(temp_ij)==1
-%                         y(i,j)=1;
-%                     elseif numel(temp_ij)>1
-%                         y(i,j)=1;
-%                     end
-%                 end
-%             end
-%             
-%             
-%             hm = imgaussfilt(x,win_sz);
-%             figure;
-%             hh2 = imagesc(hm);
-%             
-%             colormap(cmap)
-%             c=colorbar('southoutside');
-%             c.Label.String = 'activity densiy';
-%             caxis([0, 0.005])
-%             freezeColors
-%             g=get(hh2);
-%             imwrite (g.CData, ['/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/cluster' num2str(clu2plot) '-hm' num2str(gg) '.png']);
-%             close
-%             
-%             hm2 = imgaussfilt(y,win_sz);
-%             figure;
-%             hh4 = imagesc(hm2);
-%             
-%             colormap(cmap)
-%             c=colorbar('southoutside');
-%             c.Label.String = 'activity densiy';
-%             caxis([0, 0.005])
-%             freezeColors
-%             g=get(hh4);
-%             imwrite (g.CData, ['/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/cluster' num2str(clu2plot) '-hm-sagital' num2str(gg) '.png']);
-%             close
-%             
-%             
-%             subplot(4,2,cnt)
-%             atlas = imread('/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/coronal.png');
-%             heatmap = imread(['/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/cluster' num2str(clu2plot) '-hm' num2str(gg) '.png']);
-%             imagesc(imfuse(atlas,heatmap,'blend'));
-%             colormap(cmap);
-%             set(gca,'dataaspectratio',[1 1 1]);
-%             set(gca,'XTick',[70 170 270 370 470 570 670 770 870 970 1070]);
-%             set(gca,'XTickLabel',[-5 -4 -3 -2 -1 0 1 2 3 4 5]);
-%             xlabel('ML (mm)')
-%             set(gca,'YTick',[65 165 265 365 465 565 665 765]);
-%             set(gca,'YTickLabel',[0 -1 -2 -3 -4 -5 -6 -7]);
-%             ylabel('DV (mm)')
-%             title(['Coronal Projection, cluster ' num2str(clu2plot)])
-%             
-%             subplot(4,2,cnt+1)
-%             atlas2 = imread('/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/sagital.png');
-%             heatmap2 = imread(['/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/cluster' num2str(clu2plot) '-hm-sagital' num2str(gg) '.png']);
-%             imagesc(imfuse(atlas2,heatmap2,'blend'));
-%             colormap(cmap);
-%             set(gca,'dataaspectratio',[1 1 1]);
-%             set(gca,'XTick',[40 140 240 340 440 540 640 740 840 940 1040 1140 1240 1340]);
-%             set(gca,'XTickLabel',[-5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8]);
-%             xlabel('AP (mm)')
-%             set(gca,'YTick',[65 165 265 365 465 565 665 765]);
-%             set(gca,'YTickLabel',[0 -1 -2 -3 -4 -5 -6 -7]);
-%             ylabel('DV (mm)')
-%             title(['Sagital Projection, cluster ' num2str(clu2plot)])
-%             freezeColors
-%             cnt = cnt + 2;
-%         end
-%         
-%         set(gcf,'units','points','position',[0,800,1000,1600])
-%         
-%     end
-%     
-% end
+if plot_anat
+    
+    [av,tv,st] = get_Allen_Data;
+    bregma = allenCCFbregma;
+    bregma=[bregma(1) bregma(3) bregma(2)];
+    
+    figure;
+    [im] = plotAPSlice(bregma(1)-220,av,tv,st);
+    hh1 = imagesc(im);
+    colormap(cmap_allen)
+    freezeColors
+    g=get(hh1);
+    imwrite (g.CData, '/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/coronal.png');
+    close
+    
+    
+    figure;
+    [imm] = plotMLSlice(bregma(2)+30,av,tv,st);
+    hh3 = imagesc(imm);
+    colormap(cmap_allen)
+    freezeColors
+    g2=get(hh3);
+    imwrite (g2.CData, '/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/sagital.png');
+    close
+    
+    
+    
+    for cc = 1 : 10
+        %cc = 1
+        figure
+        clu2plot = outperm(cc);
+        cnt = 1;
+        
+        for gg = 1:4
+            log1 = genotype_all==gg;
+            log2 = T==clu2plot;
+            log2 = log2';
+            ap2plot = bregma(1)+AP(log2 & log1).*100;
+            ml2plot = bregma(2)-ML(log2 & log1).*100;
+            dv2plot = abs(bregma(3)-DV(log2 & log1).*100);
+            if gg==1
+                load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_WT.mat');
+            elseif gg==2
+                load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_VGlut2.mat');
+            elseif gg==3
+                load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_NPY.mat');
+            elseif gg==4
+                load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_Esr.mat');
+            end
+            
+            % Make heat map
+            %coronal
+            x=zeros(size(av,2),size(av,3));
+            for j = 1:size(av,3)
+                for i = 1:size(av,2)
+                    temp_ij=find((round(ml2plot)==j) & (round(dv2plot)==i));
+                    if numel(temp_ij)==1
+                        x(i,j)=1;
+                    elseif numel(temp_ij)>1
+                        x(i,j)=1;
+                    end
+                end
+            end
+            
+            %sagital
+            y=zeros(size(av,2),size(av,1));
+            for j = 1:size(av,1)
+                for i = 1:size(av,2)
+                    temp_ij=find((round(ap2plot)==j) & (round(dv2plot)==i));
+                    if numel(temp_ij)==1
+                        y(i,j)=1;
+                    elseif numel(temp_ij)>1
+                        y(i,j)=1;
+                    end
+                end
+            end
+            
+            
+            hm = imgaussfilt(x,win_sz);
+            figure;
+            hh2 = imagesc(hm);
+            
+            colormap(cmap)
+            c=colorbar('southoutside');
+            c.Label.String = 'activity densiy';
+            caxis([0, 0.005])
+            freezeColors
+            g=get(hh2);
+            imwrite (g.CData, ['/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/cluster' num2str(clu2plot) '-hm' num2str(gg) '.png']);
+            close
+            
+            hm2 = imgaussfilt(y,win_sz);
+            figure;
+            hh4 = imagesc(hm2);
+            
+            colormap(cmap)
+            c=colorbar('southoutside');
+            c.Label.String = 'activity densiy';
+            caxis([0, 0.005])
+            freezeColors
+            g=get(hh4);
+            imwrite (g.CData, ['/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/cluster' num2str(clu2plot) '-hm-sagital' num2str(gg) '.png']);
+            close
+            
+            
+            subplot(4,2,cnt)
+            atlas = imread('/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/coronal.png');
+            heatmap = imread(['/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/cluster' num2str(clu2plot) '-hm' num2str(gg) '.png']);
+            imagesc(imfuse(atlas,heatmap,'blend'));
+            colormap(cmap);
+            set(gca,'dataaspectratio',[1 1 1]);
+            set(gca,'XTick',[70 170 270 370 470 570 670 770 870 970 1070]);
+            set(gca,'XTickLabel',[-5 -4 -3 -2 -1 0 1 2 3 4 5]);
+            xlabel('ML (mm)')
+            set(gca,'YTick',[65 165 265 365 465 565 665 765]);
+            set(gca,'YTickLabel',[0 -1 -2 -3 -4 -5 -6 -7]);
+            ylabel('DV (mm)')
+            title(['Coronal Projection, cluster ' num2str(clu2plot)])
+            
+            subplot(4,2,cnt+1)
+            atlas2 = imread('/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/sagital.png');
+            heatmap2 = imread(['/Users/pierre/OneDrive - KI.SE/Shared/LHA-LHb-PFC/Meeting6/cluster' num2str(clu2plot) '-hm-sagital' num2str(gg) '.png']);
+            imagesc(imfuse(atlas2,heatmap2,'blend'));
+            colormap(cmap);
+            set(gca,'dataaspectratio',[1 1 1]);
+            set(gca,'XTick',[40 140 240 340 440 540 640 740 840 940 1040 1140 1240 1340]);
+            set(gca,'XTickLabel',[-5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8]);
+            xlabel('AP (mm)')
+            set(gca,'YTick',[65 165 265 365 465 565 665 765]);
+            set(gca,'YTickLabel',[0 -1 -2 -3 -4 -5 -6 -7]);
+            ylabel('DV (mm)')
+            title(['Sagital Projection, cluster ' num2str(clu2plot)])
+            freezeColors
+            cnt = cnt + 2;
+        end
+        
+        set(gcf,'units','points','position',[0,800,1000,1600])
+        
+    end
+    
+end
