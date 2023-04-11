@@ -12,7 +12,7 @@ set(0, 'DefaultFigureRenderer', 'painters')
 %% Parameters
 
 % Your path to the Database
-Path2Data = '/Volumes/labs/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
+Path2Data = '/Volumes/labs-2/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
 
 
 % Your path to analysis folder
