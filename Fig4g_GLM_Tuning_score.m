@@ -21,8 +21,8 @@ Path2Data = '/Volumes/labs/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
 D = dir([Path2Data '*.nwb']);
 
 % Your path to analysis folder
-BasePath = '/Users/pierre/Documents/MATLAB/';
-Path2Ana = [BasePath 'neuropixelPFC/Matlab/analysis/'];
+BasePath = '/Users/pielem/Documents/MATLAB/';
+Path2Ana = [BasePath 'Esr1_NPX_code/analysis/'];
 
 % to save csv 
 dest = '/Users/pierre/Library/CloudStorage/OneDrive-KarolinskaInstitutet/Pierre_Shared/LHA-LHb-PFC/Nature_Neuroscience_Revisions/tuning_scores_csv/';
@@ -113,7 +113,7 @@ for f = f_start : f_stop
         end
         
         
-        load([Path2Ana '/GLM/' nwb.general_session_id '.mat'])
+        load(['/Users/pielem/Documents/MATLAB/neuropixelPFC/Matlab/analysis/GLM/' nwb.general_session_id '.mat'])
         
         %classify a unit as positively tuned to a predictor if the beta coefficient form the GLM using the
         %real data is larger than in 99.99% of the circular shifted iterations or, reversely, as negatively tuned if it
@@ -169,16 +169,16 @@ for f = f_start : f_stop
         
         tun_scores = tuning_scores;
         tun_bol = tuned;
-        %tmu(isnan(tun_scores(1,:)))=[];
-        %rs_glm(isnan(tun_scores(1,:)))=[];
-        %fs_glm(isnan(tun_scores(1,:)))=[];
-        %save([Path2Ana '/Task_modulated_GLM2/' nwb.general_session_id '_tmu.mat'],'tmu')
-        %save([Path2Ana '/Task_modulated_GLM2/' nwb.general_session_id '_rs_glm.mat'],'rs_glm')
-        %save([Path2Ana '/Task_modulated_GLM2/' nwb.general_session_id '_fs_glm.mat'],'fs_glm')
-        %tun_scores(:,isnan(tun_scores(1,:)))=[];
-        %tun_bol(:,isnan(tun_bol(1,:)))=[];
-        %save([Path2Ana '/Task_modulated_GLM2/' nwb.general_session_id '_tuning_scores.mat'],'tun_scores')
-        %save([Path2Ana '/Task_modulated_GLM2/' nwb.general_session_id '_tuned_bol.mat'],'tun_bol')
+        tmu(isnan(tun_scores(1,:)))=[];
+        rs_glm(isnan(tun_scores(1,:)))=[];
+        fs_glm(isnan(tun_scores(1,:)))=[];
+        save([Path2Ana '/GLM_fitted/' nwb.general_session_id '_tmu.mat'],'tmu')
+        save([Path2Ana '/GLM_fitted/' nwb.general_session_id '_rs_glm.mat'],'rs_glm')
+        save([Path2Ana '/GLM_fitted/' nwb.general_session_id '_fs_glm.mat'],'fs_glm')
+        tun_scores(:,isnan(tun_scores(1,:)))=[];
+        tun_bol(:,isnan(tun_bol(1,:)))=[];
+        save([Path2Ana '/GLM_fitted/' nwb.general_session_id '_tuning_scores.mat'],'tun_scores')
+        save([Path2Ana '/GLM_fitted/' nwb.general_session_id '_tuned_bol.mat'],'tun_bol')
         
     end
 end

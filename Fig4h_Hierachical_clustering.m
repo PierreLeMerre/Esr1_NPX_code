@@ -12,12 +12,12 @@ set(0, 'DefaultFigureRenderer', 'painters')
 %% Parameters
 
 % Your path to the Database
-Path2Data = '/Volumes/labs-2/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
+Path2Data = '/Volumes/labs/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
 
 
 % Your path to analysis folder
-BasePath = '/Users/pierre/Documents/MATLAB/';
-Path2Ana = [BasePath 'Code_10122021/neuropixelPFC/Matlab/analysis/'];
+BasePath = '/Users/pielem/Documents/MATLAB/';
+Path2Ana = [BasePath 'Esr1_NPX_code/analysis/'];
 
 % Load colormaps
 load([BasePath 'Esr1_NPX_code/utilities/Colormaps/sd_colormap.mat'])
@@ -106,7 +106,7 @@ for f = f_start : f_stop
         if plotsubset==1
             % GLM subset
             if glm ==1
-                load([Path2Ana 'Task_modulated_GLM/' id{1} '_' id{2} '_tmu.mat'])
+                load([Path2Ana 'GLM_fitted/' id{1} '_' id{2} '_tmu.mat'])
             else
                 disp('Subset cannot be found')
             end
@@ -156,7 +156,7 @@ for f = f_start : f_stop
             
             % GLM subset
             if glm ==1
-                load([Path2Ana 'Task_modulated_GLM/' id{1} '_' id{2} '_tmu.mat'])
+                load([Path2Ana 'GLM_fitted/' id{1} '_' id{2} '_tmu.mat'])
                 
             else
                 disp('Subset cannot be found')
@@ -254,8 +254,8 @@ for f = f_start : f_stop
         
         if plotsubset==1
             if glm ==1
-                load([Path2Ana '/Task_modulated_GLM/' id{1} '_' id{2} '_tuning_scores.mat'])
-                load([Path2Ana '/Task_modulated_GLM/' id{1} '_' id{2} '_tuned_bol.mat'])
+                load([Path2Ana 'GLM_fitted/' id{1} '_' id{2} '_tuning_scores.mat'])
+                load([Path2Ana 'GLM_fitted/' id{1} '_' id{2} '_tuned_bol.mat'])
                 maxloc1 = zeros(1,size(tun_scores,2));
                 maxloc2 = zeros(1,size(tun_scores,2));
                 for i = 1 : size(tun_scores,2)
@@ -285,11 +285,9 @@ for f = f_start : f_stop
         % load unit mean firing rate through the session to substract
         
         %units in PFC
-        if task_mod==0
-            units_in_PFC = sum(isregion);
-        elseif task_mod==1
+
             units_in_PFC = numel(tmu);
-        end
+
         
         disp([id{1} '_' id{2} ': ' num2str(units_in_PFC)])
         % update out counter
@@ -494,7 +492,7 @@ G_ID.unit = U_ID.unit(Active_bins>200);
 G_ID.file = U_ID.file(Active_bins>200);
 
 %remove nan
-FR_all(:,isnan(X_all(:,1))) = [];
+FR_all(isnan(X_all(:,1)),:) = [];
 genotype_all(isnan(X_all(:,1))) = [];
 modul_all2(:,isnan(X_all(:,1))) = [];
 AP(isnan(X_all(:,1))) = [];
@@ -503,7 +501,7 @@ DV(isnan(X_all(:,1))) = [];
 RG(isnan(X_all(:,1))) = [];
 G_ID.unit(isnan(X_all(:,1))) = [];
 G_ID.file(isnan(X_all(:,1))) = [];
-X_all(isnan(X_all(:,1))) = [];
+X_all(isnan(X_all(:,1)),:) = [];
 
 %% Dimensionality reduction: PCA
 
@@ -582,9 +580,10 @@ c=colorbar('southoutside');
 c.Label.String = 'Firing rate (sd)';
 
 
-%% Reorganize Matrix by genotypes c(v2, no tree)
+%% Reorganize Matrix by genotypes
 
-outperm2 = [11 4 10 5 14 1 8 6 12 7 2 9 3 13 15];
+outperm2 = [11 3 12 2 5 6 1 9 13 4 7 10 8 14 15];
+
 
 t = linspace(pre,post,time_window/bin_sz);
 if strcmp(Genotype,'All')
