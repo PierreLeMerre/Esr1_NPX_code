@@ -67,13 +67,13 @@ elseif strcmp(Genotype,'WT')
     f_start = 11;
     f_stop = 15;
 elseif strcmp(Genotype,'Esr-retro')
-    f_start = 21;
+    f_start = 22;
     f_stop = 26;
 elseif strcmp(Genotype,'Esr-antero')
     f_start = 27;
     f_stop = 31;
 elseif strcmp(Genotype,'Esr')
-    f_start = 21;
+    f_start = 22;
     f_stop = 31;
 elseif strcmp(Genotype,'All')
     f_start = 1;
