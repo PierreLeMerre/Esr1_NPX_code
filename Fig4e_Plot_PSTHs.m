@@ -15,7 +15,7 @@ P = [];
 G = [];
 
 % Genotype
-genotype2plot = 'All'; %'All', 'WT', 'VGlut2', 'NPY', 'Esr'
+genotype2plot = 'Esr'; %'All', 'WT', 'VGlut2', 'NPY', 'Esr'
 
 % Restrict unit type
 Unit2plot = 'All'; % 'FS','RS' or 'All'
@@ -29,13 +29,11 @@ HexColors = {'#FECEA8','#FF847C','#6C5B7B','#355C7D'};
 Task = 'Aversion';
 
 % Your path to the Database
-Path2Data = '/Volumes/labs-1/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
-%Path2Data = '/Volumes/T7/NPX_Database/mPFC/Aversion/';
+Path2Data = '/Volumes/T7/NPX_Database/mPFC/Aversion/';
 D = dir([Path2Data '*.nwb']);
 
 % Your path to analysis folder
-BasePath = '/Users/pierre/Documents/MATLAB/';
-%Path2Ana = [BasePath 'neuropixelPFC/Matlab/analysis/'];
+BasePath = '/Users/pielem/Documents/MATLAB/';
 
 % Load colormaps
 load([BasePath 'Esr1_NPX_code/utilities/Colormaps/sd_colormap.mat'])
@@ -65,17 +63,17 @@ elseif strcmp(Genotype,'WT')
     f_start = 11;
     f_stop = 15;
 elseif strcmp(Genotype,'Esr-retro')
-    f_start = 22;
-    f_stop = 26;
+    f_start = 16;
+    f_stop = 20;
 elseif strcmp(Genotype,'Esr-antero')
-    f_start = 27;
-    f_stop = 31;
+    f_start = 21;
+    f_stop = 25;
 elseif strcmp(Genotype,'Esr')
-    f_start = 22;
-    f_stop = 31;
+    f_start = 16;
+    f_stop = 25;
 elseif strcmp(Genotype,'All')
     f_start = 1;
-    f_stop = 31;
+    f_stop = 25;
 end
 
 
@@ -87,10 +85,6 @@ ISregion_mtrx = [];
 
 
 for f = f_start : f_stop % Loop through mice
-
-    if strcmp(Genotype,'All') && 15<f && f<22
-
-    else
 
         % Read nwb file
         nwb = nwbRead([Path2Data D(f).name]);
@@ -278,8 +272,7 @@ for f = f_start : f_stop % Loop through mice
 
         eval(['P.mouse' num2str(CNT) '= PSTH_B;'])
         eval(['G.mouse' num2str(CNT) '= GK_B;'])
-        CNT = CNT + 1;
-    end 
+        CNT = CNT + 1; 
 
 end % end of mouse loop
 
