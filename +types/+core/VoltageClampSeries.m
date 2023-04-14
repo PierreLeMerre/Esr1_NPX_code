@@ -41,7 +41,7 @@ methods
         % resistance_comp_prediction = float32
         % whole_cell_capacitance_comp = float32
         % whole_cell_series_resistance_comp = float32
-        varargin = [{'capacitance_fast_unit' 'farads' 'capacitance_slow_unit' 'farads' 'data_unit' 'amperes' 'resistance_comp_bandwidth_unit' 'hertz' 'resistance_comp_correction_unit' 'percent' 'resistance_comp_prediction_unit' 'percent' 'whole_cell_capacitance_comp_unit' 'farads' 'whole_cell_series_resistance_comp_unit' 'ohms'} varargin];
+        varargin = [{'capacitance_fast_unit' 'farads' 'capacitance_slow_unit' 'farads' 'comments' 'no comments' 'data_conversion' types.util.correctType(1, 'float32') 'data_resolution' types.util.correctType(-1, 'float32') 'data_unit' 'amperes' 'description' 'no description' 'resistance_comp_bandwidth_unit' 'hertz' 'resistance_comp_correction_unit' 'percent' 'resistance_comp_prediction_unit' 'percent' 'whole_cell_capacitance_comp_unit' 'farads' 'whole_cell_series_resistance_comp_unit' 'ohms'} varargin];
         obj = obj@types.core.PatchClampSeries(varargin{:});
         
         
@@ -110,6 +110,10 @@ methods
         val = types.util.checkDtype('capacitance_fast', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -120,6 +124,24 @@ methods
         val = types.util.checkDtype('capacitance_slow', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_comments(obj, val)
+        val = types.util.checkDtype('comments', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -129,10 +151,56 @@ methods
     function val = validate_data(obj, val)
     
     end
+    function val = validate_data_conversion(obj, val)
+        val = types.util.checkDtype('data_conversion', 'float32', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_data_resolution(obj, val)
+        val = types.util.checkDtype('data_resolution', 'float32', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_description(obj, val)
+        val = types.util.checkDtype('description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
     function val = validate_resistance_comp_bandwidth(obj, val)
         val = types.util.checkDtype('resistance_comp_bandwidth', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -143,6 +211,10 @@ methods
         val = types.util.checkDtype('resistance_comp_correction', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -153,6 +225,38 @@ methods
         val = types.util.checkDtype('resistance_comp_prediction', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_stimulus_description(obj, val)
+        val = types.util.checkDtype('stimulus_description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_sweep_number(obj, val)
+        val = types.util.checkDtype('sweep_number', 'uint32', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -163,6 +267,10 @@ methods
         val = types.util.checkDtype('whole_cell_capacitance_comp', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -173,6 +281,10 @@ methods
         val = types.util.checkDtype('whole_cell_series_resistance_comp', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end

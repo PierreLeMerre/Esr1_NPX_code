@@ -41,7 +41,7 @@ methods
         % description = char
         % starting_time = float64
         % timestamps = float64
-        varargin = [{'comments' 'no comments' 'data_conversion' types.util.correctType(1.0, 'float32') 'data_resolution' types.util.correctType(-1.0, 'float32') 'description' 'no description' 'starting_time_unit' 'seconds' 'timestamps_interval' types.util.correctType(1, 'int32') 'timestamps_unit' 'seconds'} varargin];
+        varargin = [{'comments' 'no comments' 'data_conversion' types.util.correctType(1, 'float32') 'data_resolution' types.util.correctType(-1, 'float32') 'description' 'no description' 'starting_time_unit' 'seconds' 'timestamps_interval' types.util.correctType(1, 'int32') 'timestamps_unit' 'seconds'} varargin];
         obj = obj@types.core.NWBDataInterface(varargin{:});
         
         
@@ -120,11 +120,26 @@ methods
     
     function val = validate_comments(obj, val)
         val = types.util.checkDtype('comments', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_control(obj, val)
         val = types.util.checkDtype('control', 'uint8', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -133,26 +148,85 @@ methods
     end
     function val = validate_control_description(obj, val)
         val = types.util.checkDtype('control_description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[Inf]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_data(obj, val)
     
     end
     function val = validate_data_conversion(obj, val)
         val = types.util.checkDtype('data_conversion', 'float32', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_data_resolution(obj, val)
         val = types.util.checkDtype('data_resolution', 'float32', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_data_unit(obj, val)
         val = types.util.checkDtype('data_unit', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_description(obj, val)
         val = types.util.checkDtype('description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_starting_time(obj, val)
         val = types.util.checkDtype('starting_time', 'float64', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -161,11 +235,26 @@ methods
     end
     function val = validate_starting_time_rate(obj, val)
         val = types.util.checkDtype('starting_time_rate', 'float32', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_timestamps(obj, val)
         val = types.util.checkDtype('timestamps', 'float64', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end

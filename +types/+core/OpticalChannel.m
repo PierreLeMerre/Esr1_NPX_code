@@ -41,11 +41,26 @@ methods
     
     function val = validate_description(obj, val)
         val = types.util.checkDtype('description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_emission_lambda(obj, val)
         val = types.util.checkDtype('emission_lambda', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end

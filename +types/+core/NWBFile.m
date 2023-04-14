@@ -101,7 +101,7 @@ methods
         % stimulus_presentation = TimeSeries
         % stimulus_templates = TimeSeries
         % units = Units
-        varargin = [{'nwb_version' '2.2.4'} varargin];
+        varargin = [{'nwb_version' '2.2.5'} varargin];
         obj = obj@types.core.NWBContainer(varargin{:});
         
         
@@ -346,6 +346,10 @@ methods
         val = types.util.checkDtype('file_create_date', 'isodatetime', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -358,6 +362,17 @@ methods
     end
     function val = validate_general_data_collection(obj, val)
         val = types.util.checkDtype('general_data_collection', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_devices(obj, val)
         constrained = {'types.core.Device'};
@@ -365,9 +380,31 @@ methods
     end
     function val = validate_general_experiment_description(obj, val)
         val = types.util.checkDtype('general_experiment_description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_experimenter(obj, val)
         val = types.util.checkDtype('general_experimenter', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[Inf]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_extracellular_ephys(obj, val)
         constrained = {'types.core.ElectrodeGroup'};
@@ -378,6 +415,17 @@ methods
     end
     function val = validate_general_institution(obj, val)
         val = types.util.checkDtype('general_institution', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_intracellular_ephys(obj, val)
         constrained = {'types.core.IntracellularElectrode'};
@@ -385,18 +433,62 @@ methods
     end
     function val = validate_general_intracellular_ephys_filtering(obj, val)
         val = types.util.checkDtype('general_intracellular_ephys_filtering', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_intracellular_ephys_sweep_table(obj, val)
         val = types.util.checkDtype('general_intracellular_ephys_sweep_table', 'types.core.SweepTable', val);
     end
     function val = validate_general_keywords(obj, val)
         val = types.util.checkDtype('general_keywords', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[Inf]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_lab(obj, val)
         val = types.util.checkDtype('general_lab', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_notes(obj, val)
         val = types.util.checkDtype('general_notes', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_optogenetics(obj, val)
         constrained = {'types.core.OptogeneticStimulusSite'};
@@ -408,39 +500,160 @@ methods
     end
     function val = validate_general_pharmacology(obj, val)
         val = types.util.checkDtype('general_pharmacology', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_protocol(obj, val)
         val = types.util.checkDtype('general_protocol', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_related_publications(obj, val)
         val = types.util.checkDtype('general_related_publications', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[Inf]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_session_id(obj, val)
         val = types.util.checkDtype('general_session_id', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_slices(obj, val)
         val = types.util.checkDtype('general_slices', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_source_script(obj, val)
         val = types.util.checkDtype('general_source_script', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_source_script_file_name(obj, val)
         val = types.util.checkDtype('general_source_script_file_name', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_stimulus(obj, val)
         val = types.util.checkDtype('general_stimulus', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_subject(obj, val)
         val = types.util.checkDtype('general_subject', 'types.core.Subject', val);
     end
     function val = validate_general_surgery(obj, val)
         val = types.util.checkDtype('general_surgery', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_general_virus(obj, val)
         val = types.util.checkDtype('general_virus', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_identifier(obj, val)
         val = types.util.checkDtype('identifier', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_intervals(obj, val)
         constrained = {'types.core.TimeIntervals'};
@@ -465,11 +678,26 @@ methods
     end
     function val = validate_session_description(obj, val)
         val = types.util.checkDtype('session_description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_session_start_time(obj, val)
         val = types.util.checkDtype('session_start_time', 'isodatetime', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -488,6 +716,10 @@ methods
         val = types.util.checkDtype('timestamps_reference_time', 'isodatetime', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end

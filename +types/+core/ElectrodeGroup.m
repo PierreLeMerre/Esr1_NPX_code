@@ -59,12 +59,34 @@ methods
     
     function val = validate_description(obj, val)
         val = types.util.checkDtype('description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_device(obj, val)
         val = types.util.checkDtype('device', 'types.core.Device', val);
     end
     function val = validate_location(obj, val)
         val = types.util.checkDtype('location', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_position(obj, val)
         if isempty(val) || isa(val, 'types.untyped.DataStub')
@@ -80,6 +102,10 @@ methods
         val = types.util.checkDtype('position', vprops, val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -111,7 +137,7 @@ methods
             if startsWith(class(obj.position), 'types.untyped.')
                 refs = obj.position.export(fid, [fullpath '/position'], refs);
             elseif ~isempty(obj.position)
-                io.writeDataset(fid, [fullpath '/position'], obj.position);
+                io.writeCompound(fid, [fullpath '/position'], obj.position);
             end
         end
     end

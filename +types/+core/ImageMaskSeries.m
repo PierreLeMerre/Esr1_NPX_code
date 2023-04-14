@@ -12,6 +12,7 @@ methods
         % IMAGEMASKSERIES Constructor for ImageMaskSeries
         %     obj = IMAGEMASKSERIES(parentname1,parentvalue1,..,parentvalueN,parentargN,name1,value1,...,nameN,valueN)
         % masked_imageseries = ImageSeries
+        varargin = [{'comments' 'no comments' 'description' 'no description'} varargin];
         obj = obj@types.core.ImageSeries(varargin{:});
         
         
@@ -32,6 +33,34 @@ methods
     end
     %% VALIDATORS
     
+    function val = validate_comments(obj, val)
+        val = types.util.checkDtype('comments', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_description(obj, val)
+        val = types.util.checkDtype('description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
     function val = validate_masked_imageseries(obj, val)
         val = types.util.checkDtype('masked_imageseries', 'types.core.ImageSeries', val);
     end

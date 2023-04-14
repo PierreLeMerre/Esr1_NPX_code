@@ -16,7 +16,7 @@ methods
         % bands = DynamicTable
         % metric = char
         % source_timeseries = TimeSeries
-        varargin = [{'data_unit' 'no unit'} varargin];
+        varargin = [{'comments' 'no comments' 'data_conversion' types.util.correctType(1, 'float32') 'data_resolution' types.util.correctType(-1, 'float32') 'data_unit' 'no unit' 'description' 'no description'} varargin];
         obj = obj@types.core.TimeSeries(varargin{:});
         
         
@@ -50,21 +50,103 @@ methods
     function val = validate_bands(obj, val)
         val = types.util.checkDtype('bands', 'types.hdmf_common.DynamicTable', val);
     end
+    function val = validate_comments(obj, val)
+        val = types.util.checkDtype('comments', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
     function val = validate_data(obj, val)
         val = types.util.checkDtype('data', 'numeric', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf Inf Inf]};
+        validshapes = {[Inf,Inf,Inf]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_data_conversion(obj, val)
+        val = types.util.checkDtype('data_conversion', 'float32', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_data_resolution(obj, val)
+        val = types.util.checkDtype('data_resolution', 'float32', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_data_unit(obj, val)
         val = types.util.checkDtype('data_unit', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_description(obj, val)
+        val = types.util.checkDtype('description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_metric(obj, val)
         val = types.util.checkDtype('metric', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_source_timeseries(obj, val)
         val = types.util.checkDtype('source_timeseries', 'types.core.TimeSeries', val);

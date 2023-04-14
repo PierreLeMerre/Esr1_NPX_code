@@ -7,7 +7,7 @@ methods
     function obj = AnnotationSeries(varargin)
         % ANNOTATIONSERIES Constructor for AnnotationSeries
         %     obj = ANNOTATIONSERIES(parentname1,parentvalue1,..,parentvalueN,parentargN,name1,value1,...,nameN,valueN)
-        varargin = [{'data_resolution' types.util.correctType(-1.0, 'float32') 'data_unit' 'n/a'} varargin];
+        varargin = [{'comments' 'no comments' 'data_conversion' types.util.correctType(1, 'float32') 'data_resolution' types.util.correctType(-1, 'float32') 'data_unit' 'n/a' 'description' 'no description'} varargin];
         obj = obj@types.core.TimeSeries(varargin{:});
         if strcmp(class(obj), 'types.core.AnnotationSeries')
             types.util.checkUnset(obj, unique(varargin(1:2:end)));
@@ -17,8 +17,61 @@ methods
     
     %% VALIDATORS
     
+    function val = validate_comments(obj, val)
+        val = types.util.checkDtype('comments', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
     function val = validate_data(obj, val)
         val = types.util.checkDtype('data', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[Inf]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_data_conversion(obj, val)
+        val = types.util.checkDtype('data_conversion', 'float32', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
+    end
+    function val = validate_description(obj, val)
+        val = types.util.checkDtype('description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[1]};
+        types.util.checkDims(valsz, validshapes);
     end
     %% EXPORT
     function refs = export(obj, fid, fullpath, refs)

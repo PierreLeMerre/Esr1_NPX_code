@@ -55,6 +55,17 @@ methods
     
     function val = validate_description(obj, val)
         val = types.util.checkDtype('description', 'char', val);
+        if isa(val, 'types.untyped.DataStub')
+            valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
+        else
+            valsz = size(val);
+        end
+        validshapes = {[Inf]};
+        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_electrodes(obj, val)
         val = types.util.checkDtype('electrodes', 'types.hdmf_common.DynamicTableRegion', val);
@@ -63,16 +74,24 @@ methods
         val = types.util.checkDtype('features', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf Inf Inf]};
+        validshapes = {[Inf,Inf,Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_times(obj, val)
         val = types.util.checkDtype('times', 'float64', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
+        elseif istable(val)
+            valsz = height(val);
+        elseif ischar(val)
+            valsz = size(val, 1);
         else
             valsz = size(val);
         end
