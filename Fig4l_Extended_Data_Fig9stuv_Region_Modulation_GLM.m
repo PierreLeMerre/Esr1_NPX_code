@@ -9,67 +9,21 @@ format long
 set(0, 'DefaultFigureRenderer', 'painters')
 
 %% Load
-% Task
-Task = 'Aversion'; %'Passive','Context','Aversion'
 
-%Brain region
-Brain_region = 'mPFC'; %mPFC Aud
+Tasks = 'Aversion'; %,'Detection','Opto'
 
-Tasks = {'Passive','Context','Aversion'}; %,'Detection','Opto'
-
-genotype2plot = 'Esr';
+genotype2plot = 'WT';
 
 % Your path to the Database
-%Path2Data = ['/Volumes/labs/dmclab/Pierre/NPX_Database/' Brain_region '/'];
-Path2Data = ['/Volumes/T7/LeMerre_dataset/' Brain_region '/'];
-
+Path2Data = '/Volumes/labs/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
+D = dir([Path2Data '*.nwb']);
 
 % Allen Brain Atlas regions to count the units
 Regions = {'ACAd','PL','ILA','ORBm'};
-%Regions = {'MOs','ACAd','ACAv','PL','ILA','ORBm','ORBvl','ORBl'};
-
-% Regions = {'MO1','MOs2/3','MOs5','MOs6a','MOs6b',...
-%     'ACAd1','ACAd2/3','ACAd5','ACAd6a','ACAd6b',...
-%     'ACAv1','ACAv2/3','ACAv5','ACAv6a','ACAv6b',...
-%     'PL1','PL2/3','PL5','PL6a','PL6b',...
-%     'ILA1','ILA2/3','ILA5','ILA6a','ILA6b',...
-%     'ORBm1','ORBm2/3','ORBm5','ORBm6a','ORBm6b',...
-%     'ORBvl1','ORBvl2/3','ORBvl5','ORBvl6a','ORBvl6b',...
-%     'ORBl1','ORBl2/3','ORBl5','ORBl6a','ORBl6b'};
 
 % Your path to analysis folder
-Path2Ana = '/Users/pierre/Documents/MATLAB/Code_10122021/neuropixelPFC/Matlab/analysis/';
-
-% Figure saving path
-%FigPath = '/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/';
-
-% files to plot
-% Genotype = 'All';
-% if strcmp(Genotype,'NPY')
-%     f_start = 1;
-%     f_stop = 5;
-%     load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_NPY.mat');
-% elseif strcmp(Genotype,'VGlut2')
-%     f_start = 6;
-%     f_stop = 10;
-%     load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_VGlut2.mat');
-% elseif strcmp(Genotype,'WT')
-%     f_start = 11;
-%     f_stop = 15;
-%     load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_WT.mat');
-% elseif strcmp(Genotype,'Esr-retro')
-%     f_start = 16;
-%     f_stop = 20;
-%     load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_Esr.mat');
-% elseif strcmp(Genotype,'Esr-antero')
-%     f_start = 21;
-%     f_stop = 25;
-%     load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_Esr.mat');
-% elseif strcmp(Genotype,'Esr')
-%     f_start = 16;
-%     f_stop = 25;
-%     load('/Users/pierre/Documents/MATLAB/neuropixelPFC/Matlab/Utilities/Colormaps/cmap_Esr.mat');
-% end
+BasePath = '/Users/pielem/Documents/MATLAB/';
+Path2Ana = [BasePath 'Esr1_NPX_code/analysis/'];
 
 
 MODUL_s = [];
@@ -86,16 +40,8 @@ REG_a = [];
 
 ISREGION = [];
 
-%for T = 1 : numel(Tasks)
-    
-    T = 3;
-    Task = Tasks{T}; %'Passive','Context','Aversion'
-    Path = [Path2Data Task filesep];
-    D = dir([Path '*.nwb']);
-    
-     % files to plot
-    if strcmp(Brain_region,'mPFC')
-        if strcmp(Task,'Aversion')
+   
+
             %Chose genotype
             Genotype = genotype2plot;
             if strcmp(Genotype,'NPY')
@@ -120,19 +66,7 @@ ISREGION = [];
                 f_start = 1;
                 f_stop = 25;
             end
-        elseif strcmp(Task,'Detection')
-            f_start = 1;
-            f_stop = numel(D);
-        else
-            f_start = 1;
-            f_stop = numel(D);
-        end
-    else
 
-            f_start = 1;
-            f_stop = numel(D);
-
-    end
 
     CNT = 1;
     M_modul_s = nan(1,f_stop-f_start+1);
@@ -143,7 +77,7 @@ ISREGION = [];
 for f = f_start : f_stop % Loop through mice
     
     % Read nwb file
-    nwb = nwbRead([Path D(f).name]);
+    nwb = nwbRead([Path2Data D(f).name]);
     % get id and recording duration from meta file
     id = strsplit(nwb.general_session_id,'_');
     
@@ -167,29 +101,25 @@ for f = f_start : f_stop % Loop through mice
     end
     ISREGION = [ISREGION isregion];
     
-    disp(['Get task-modulated units for mouse ' id{1} ', session ' id{2}])
+    disp(['Get GLM-fitted units for mouse ' id{1} ', session ' id{2}])
     
     % load GLM units
-    load([Path2Ana 'Task_modulated_GLM/' id{1} '_' id{2} '_tmu.mat'])
+    load([Path2Ana 'GLM_fitted/' id{1} '_' id{2} '_tmu.mat'])
+
     % load GLM tuning scores and p_value boleans
-    load([Path2Ana '/Task_modulated_GLM/' id{1} '_' id{2} '_tuning_scores.mat'])
-    load([Path2Ana '/Task_modulated_GLM/' id{1} '_' id{2} '_tuned_bol.mat'])
+    load([Path2Ana 'GLM_fitted/' id{1} '_' id{2} '_tuning_scores.mat'])
+    load([Path2Ana 'GLM_fitted/' id{1} '_' id{2} '_tuned_bol.mat'])
     
     
-    % with significant units for each
-    %MODUL_s = [MODUL_s; tun_scores(1,tun_bol(1,:)==1 | tun_bol(1,:)==-1)'];
     % with all fitted units for each
     MODUL_s = [MODUL_s; tun_scores(1,:)'];
     temp_s = ede_regions(main_ch(tmu+1));
     REG_s = [REG_s; temp_s(tun_bol(1,:)==1 | tun_bol(1,:)==-1)];
     
     m1 = tun_scores(1,tun_scores(1,:)>=0);
-    %m1 = [];
     m2 = abs(tun_scores(1,tun_scores(1,:)<0));
     M_modul_s(CNT) = nanmean([m1 m2]);
     
-    % with significant units for each
-    %MODUL_o = [MODUL_o; tun_scores(2,tun_bol(2,:)==1 | tun_bol(2,:)==-1)'];
     % with all fitted units for each
     MODUL_o = [MODUL_o; tun_scores(2,:)'];
     temp_o = ede_regions(main_ch(tmu+1));
@@ -199,25 +129,19 @@ for f = f_start : f_stop % Loop through mice
     m2 = abs(tun_scores(2,tun_scores(2,:)<0));
     M_modul_o(CNT) = nanmean([m1 m2]);
     
-    % with significant units for each
-    %MODUL_s2 = [MODUL_s2; tun_scores(3,tun_bol(3,:)==1 | tun_bol(3,:)==-1)'];
     % with all fitted units for each
     MODUL_s2 = [MODUL_s2; tun_scores(3,:)'];
     temp_s2 = ede_regions(main_ch(tmu+1));
     REG_s2 = [REG_s2; temp_s(tun_bol(3,:)==1 | tun_bol(3,:)==-1)];
     m1 = tun_scores(3,tun_scores(3,:)>=0);
-    %m1 = [];
     m2 = abs(tun_scores(3,tun_scores(3,:)<0));
     M_modul_s2(CNT) = nanmean([m1 m2]);
     
-    % with significant units for each
-    %MODUL_a = [MODUL_a; tun_scores(4,tun_bol(4,:)==1 | tun_bol(4,:)==-1)'];
     % with all fitted units for each
     MODUL_a = [MODUL_a; tun_scores(4,:)'];
     temp_a = ede_regions(main_ch(tmu+1));
     REG_a = [REG_a; temp_s(tun_bol(4,:)==1 | tun_bol(4,:)==-1)];
     m1 = tun_scores(4,tun_scores(4,:)>=0);
-    %m1 = [];
     m2 = abs(tun_scores(4,tun_scores(4,:)<0));
     m2(m2>30) = []; % one air puff outlier to remove
     M_modul_a(CNT) = nanmean([m1 m2]);
@@ -226,20 +150,7 @@ for f = f_start : f_stop % Loop through mice
     
 end % end of mouse loop
 
-%end % of task loop
 
-
-% Save for stats individual mice
-save(['/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/Stats/Modul_GLMneg_s_' Genotype '.mat'],'M_modul_s')
-save(['/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/Stats/Modul_GLMneg_o_' Genotype '.mat'],'M_modul_o')
-save(['/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/Stats/Modul_GLMneg_s2_' Genotype '.mat'],'M_modul_s2')
-save(['/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/Stats/Modul_GLMneg_a_' Genotype '.mat'],'M_modul_a')
-
-% Save for stat pooled tuning scores
-% save(['/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/Stats/Modul_GLMpool_s_' Genotype '.mat'],'MODUL_s')
-% save(['/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/Stats/Modul_GLMpool_o_' Genotype '.mat'],'MODUL_o')
-% save(['/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/Stats/Modul_GLMpool_s2_' Genotype '.mat'],'MODUL_s2')
-% save(['/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/Stats/Modul_GLMpool_a_' Genotype '.mat'],'MODUL_a')
 
 %% PLot Positive
 
@@ -348,9 +259,6 @@ title('Air puff')
 sgtitle(Genotype)
 set(gcf,'units','points','position',[0,2000,1500,250])
 
-
-saveas(f1,[FigPath 'GLM_' Genotype '_RegionMap_pos'],'epsc')
-
 % PLot negative
 [cmap] = cbrewer('seq', 'Blues',64,'spline');
 % sound
@@ -454,7 +362,7 @@ title('Air puff')
 
 sgtitle(Genotype)
 set(gcf,'units','points','position',[0,775,1500,250])
-saveas(f2,[FigPath 'GLM_' Genotype '_RegionMap_neg'],'epsc')
+
 
  %% count units
 [cmap] = cbrewer('seq', 'Reds',64,'spline');
@@ -514,4 +422,3 @@ title('Airpuff')
 sgtitle(Genotype)
 set(gcf,'units','points','position',[0,475,1500,250])
 
-saveas(f3,[FigPath 'GLM_fraction_' Genotype '_RegionMap'],'epsc')

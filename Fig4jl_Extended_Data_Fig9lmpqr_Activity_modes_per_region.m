@@ -1,3 +1,11 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Script that plots the activity modes per region from processed data.
+% Inspired and adapted from Allen et al., Science, 2019
+%
+% Written by pielem Le Merre
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 cls
 format long
 set(0, 'DefaultFigureRenderer', 'painters')
@@ -13,7 +21,7 @@ post = 5; % in seconds
 time_window = post-pre; % in seconds
 
 % preallocate
-load('/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/activity_modes/PL_activity_modes5.mat')
+load('/Users/pielem/Documents/MATLAB/Esr1_NPX_code/analysis/activity_modes/PL_activity_modes5.mat')
 sb2 = nan(16,size(state.b2,2));
 cc = nan(16,size(state.b2,2));
 av = nan(16,size(state.b2,2));
@@ -24,7 +32,7 @@ for g = 1:numel(Genotypes)
     
     for i = 1:numel(Regions)
         region = Regions{i};
-        load(['/Users/pierre/OneDrive - KI.SE/Pierre_Shared/LHA-LHb-PFC/NatureSubmission/activity_modes/' region '_activity_modes5.mat'])
+        load(['/Users/pielem/Documents/MATLAB/Esr1_NPX_code/analysis/activity_modes/' region '_activity_modes5.mat'])
         sb2(cnt,:) = state.b2(g,:)-state.b1(g,:);
         cc(cnt,:) = cue.b2(g,:)-cue.b1(g,:);
         av(cnt,:) = avs.b2(g,:)-avs.b1(g,:);
@@ -70,7 +78,7 @@ set(gcf,'units','points','position',[500,370,1500,550])
 %% State mode color map
 %Esr
 figure;
-load('/Users/pierre/Documents/MATLAB/Colormaps/purple.mat')
+load('/Users/pielem/OneDrive - Karolinska Institutet/Mac/Documents/MATLAB/Esr1_NPX_code/utilities/Colormaps/purple.mat')
 state_mean = nan(1,4);
 for i = 1:4   
     state_mean(i) = mean(sb2(12+i,:),2);
