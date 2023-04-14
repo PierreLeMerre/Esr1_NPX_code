@@ -1,0 +1,18 @@
+using Plots
+using NaNStatistics
+using StatsPlots
+using HypothesisTests
+using DelimitedFiles
+
+clu = "Cluster1_stateb1"
+
+csv = readdlm("/Users/pielem/Library/CloudStorage/OneDrive-KI.SE/Pierre_Shared/LHA-LHb-PFC/Nature_Neuroscience_Revisions/baseline/"*clu*".csv",',')
+M = float.(csv[2:end,:])
+
+ids = [ones(size(M,1)).*i for i in 1:4]
+latencies = [M[:,i] for i in 1:4]
+labels = ["block1" "block2" "block3" "block4"]
+colors = ["#000000" "#2BABE2" "#9D9D9C" "#F18719"]
+
+boxplot(ids, M, linewidth=2, outliers=false, ylims=(0,20), label=labels, fillcolor=colors)
+

@@ -36,17 +36,6 @@ methods
     end
     function val = validate_notes(obj, val)
         val = types.util.checkDtype('notes', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     %% EXPORT
     function refs = export(obj, fid, fullpath, refs)

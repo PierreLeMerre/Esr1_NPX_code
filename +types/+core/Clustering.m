@@ -55,26 +55,11 @@ methods
     
     function val = validate_description(obj, val)
         val = types.util.checkDtype('description', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_num(obj, val)
         val = types.util.checkDtype('num', 'int32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -85,10 +70,6 @@ methods
         val = types.util.checkDtype('peak_over_rms', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -99,10 +80,6 @@ methods
         val = types.util.checkDtype('times', 'float64', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end

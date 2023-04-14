@@ -27,20 +27,20 @@ methods
         %     obj = IMAGINGPLANE(parentname1,parentvalue1,..,parentvalueN,parentargN,name1,value1,...,nameN,valueN)
         % device = Device
         % excitation_lambda = float32
+        % grid_spacing_unit = char
         % indicator = char
         % location = char
         % opticalchannel = OpticalChannel
+        % origin_coords_unit = char
         % description = char
         % grid_spacing = float32
-        % grid_spacing_unit = char
         % imaging_rate = float32
         % manifold = float32
         % manifold_conversion = float32
         % manifold_unit = char
         % origin_coords = float32
-        % origin_coords_unit = char
         % reference_frame = char
-        varargin = [{'grid_spacing_unit' 'meters' 'manifold_conversion' types.util.correctType(1, 'float32') 'manifold_unit' 'meters' 'origin_coords_unit' 'meters'} varargin];
+        varargin = [{'grid_spacing_unit' 'meters' 'manifold_conversion' types.util.correctType(1.0, 'float32') 'manifold_unit' 'meters' 'origin_coords_unit' 'meters'} varargin];
         obj = obj@types.core.NWBContainer(varargin{:});
         [obj.opticalchannel, ivarargin] = types.util.parseConstrained(obj,'opticalchannel', 'types.core.OpticalChannel', varargin{:});
         varargin(ivarargin) = [];
@@ -51,32 +51,32 @@ methods
         p.StructExpand = false;
         addParameter(p, 'device',[]);
         addParameter(p, 'excitation_lambda',[]);
+        addParameter(p, 'grid_spacing_unit',[]);
         addParameter(p, 'indicator',[]);
         addParameter(p, 'location',[]);
+        addParameter(p, 'origin_coords_unit',[]);
         addParameter(p, 'description',[]);
         addParameter(p, 'grid_spacing',[]);
-        addParameter(p, 'grid_spacing_unit',[]);
         addParameter(p, 'imaging_rate',[]);
         addParameter(p, 'manifold',[]);
         addParameter(p, 'manifold_conversion',[]);
         addParameter(p, 'manifold_unit',[]);
         addParameter(p, 'origin_coords',[]);
-        addParameter(p, 'origin_coords_unit',[]);
         addParameter(p, 'reference_frame',[]);
         misc.parseSkipInvalidName(p, varargin);
         obj.device = p.Results.device;
         obj.excitation_lambda = p.Results.excitation_lambda;
+        obj.grid_spacing_unit = p.Results.grid_spacing_unit;
         obj.indicator = p.Results.indicator;
         obj.location = p.Results.location;
+        obj.origin_coords_unit = p.Results.origin_coords_unit;
         obj.description = p.Results.description;
         obj.grid_spacing = p.Results.grid_spacing;
-        obj.grid_spacing_unit = p.Results.grid_spacing_unit;
         obj.imaging_rate = p.Results.imaging_rate;
         obj.manifold = p.Results.manifold;
         obj.manifold_conversion = p.Results.manifold_conversion;
         obj.manifold_unit = p.Results.manifold_unit;
         obj.origin_coords = p.Results.origin_coords;
-        obj.origin_coords_unit = p.Results.origin_coords_unit;
         obj.reference_frame = p.Results.reference_frame;
         if strcmp(class(obj), 'types.core.ImagingPlane')
             types.util.checkUnset(obj, unique(varargin(1:2:end)));
@@ -132,17 +132,6 @@ methods
     
     function val = validate_description(obj, val)
         val = types.util.checkDtype('description', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_device(obj, val)
         val = types.util.checkDtype('device', 'types.core.Device', val);
@@ -151,10 +140,6 @@ methods
         val = types.util.checkDtype('excitation_lambda', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -165,38 +150,19 @@ methods
         val = types.util.checkDtype('grid_spacing', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[3], [2]};
+        validshapes = {[3 2]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_grid_spacing_unit(obj, val)
         val = types.util.checkDtype('grid_spacing_unit', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_imaging_rate(obj, val)
         val = types.util.checkDtype('imaging_rate', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -205,73 +171,25 @@ methods
     end
     function val = validate_indicator(obj, val)
         val = types.util.checkDtype('indicator', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_location(obj, val)
         val = types.util.checkDtype('location', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_manifold(obj, val)
         val = types.util.checkDtype('manifold', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[3,Inf,Inf,Inf], [3,Inf,Inf]};
+        validshapes = {[3 Inf Inf], [3 Inf Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_manifold_conversion(obj, val)
         val = types.util.checkDtype('manifold_conversion', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_manifold_unit(obj, val)
         val = types.util.checkDtype('manifold_unit', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_opticalchannel(obj, val)
         constrained = {'types.core.OpticalChannel'};
@@ -281,43 +199,17 @@ methods
         val = types.util.checkDtype('origin_coords', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[3], [2]};
+        validshapes = {[3 2]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_origin_coords_unit(obj, val)
         val = types.util.checkDtype('origin_coords_unit', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_reference_frame(obj, val)
         val = types.util.checkDtype('reference_frame', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     %% EXPORT
     function refs = export(obj, fid, fullpath, refs)
@@ -350,11 +242,13 @@ methods
             if startsWith(class(obj.grid_spacing), 'types.untyped.')
                 refs = obj.grid_spacing.export(fid, [fullpath '/grid_spacing'], refs);
             elseif ~isempty(obj.grid_spacing)
-                io.writeDataset(fid, [fullpath '/grid_spacing'], obj.grid_spacing);
+                io.writeDataset(fid, [fullpath '/grid_spacing'], obj.grid_spacing, 'forceArray');
             end
         end
         if ~isempty(obj.grid_spacing_unit) && ~isempty(obj.grid_spacing)
             io.writeAttribute(fid, [fullpath '/grid_spacing/unit'], obj.grid_spacing_unit);
+        elseif ~isempty(obj.grid_spacing)
+            error('Property `grid_spacing_unit` is required in `%s`.', fullpath);
         end
         if ~isempty(obj.imaging_rate)
             if startsWith(class(obj.imaging_rate), 'types.untyped.')
@@ -403,11 +297,13 @@ methods
             if startsWith(class(obj.origin_coords), 'types.untyped.')
                 refs = obj.origin_coords.export(fid, [fullpath '/origin_coords'], refs);
             elseif ~isempty(obj.origin_coords)
-                io.writeDataset(fid, [fullpath '/origin_coords'], obj.origin_coords);
+                io.writeDataset(fid, [fullpath '/origin_coords'], obj.origin_coords, 'forceArray');
             end
         end
         if ~isempty(obj.origin_coords_unit) && ~isempty(obj.origin_coords)
             io.writeAttribute(fid, [fullpath '/origin_coords/unit'], obj.origin_coords_unit);
+        elseif ~isempty(obj.origin_coords)
+            error('Property `origin_coords_unit` is required in `%s`.', fullpath);
         end
         if ~isempty(obj.reference_frame)
             if startsWith(class(obj.reference_frame), 'types.untyped.')

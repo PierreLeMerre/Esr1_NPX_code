@@ -14,7 +14,7 @@ methods
         %     obj = ABSTRACTFEATURESERIES(parentname1,parentvalue1,..,parentvalueN,parentargN,name1,value1,...,nameN,valueN)
         % features = char
         % feature_units = char
-        varargin = [{'comments' 'no comments' 'data_conversion' types.util.correctType(1, 'float32') 'data_resolution' types.util.correctType(-1, 'float32') 'data_unit' 'see `feature_units`' 'description' 'no description'} varargin];
+        varargin = [{'data_unit' 'see `feature_units`'} varargin];
         obj = obj@types.core.TimeSeries(varargin{:});
         
         
@@ -40,117 +40,24 @@ methods
     end
     %% VALIDATORS
     
-    function val = validate_comments(obj, val)
-        val = types.util.checkDtype('comments', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
-    end
     function val = validate_data(obj, val)
         val = types.util.checkDtype('data', 'numeric', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf], [Inf]};
-        types.util.checkDims(valsz, validshapes);
-    end
-    function val = validate_data_conversion(obj, val)
-        val = types.util.checkDtype('data_conversion', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
-    end
-    function val = validate_data_resolution(obj, val)
-        val = types.util.checkDtype('data_resolution', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
+        validshapes = {[Inf], [Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_data_unit(obj, val)
         val = types.util.checkDtype('data_unit', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
-    end
-    function val = validate_description(obj, val)
-        val = types.util.checkDtype('description', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_feature_units(obj, val)
         val = types.util.checkDtype('feature_units', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[Inf]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_features(obj, val)
         val = types.util.checkDtype('features', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[Inf]};
-        types.util.checkDims(valsz, validshapes);
     end
     %% EXPORT
     function refs = export(obj, fid, fullpath, refs)

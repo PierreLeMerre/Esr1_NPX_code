@@ -19,7 +19,7 @@ methods
         % channel_conversion_axis = int32
         % electrodes = DynamicTableRegion
         % channel_conversion = float32
-        varargin = [{'channel_conversion_axis' types.util.correctType(1, 'int32') 'comments' 'no comments' 'data_conversion' types.util.correctType(1, 'float32') 'data_resolution' types.util.correctType(-1, 'float32') 'data_unit' 'volts' 'description' 'no description'} varargin];
+        varargin = [{'channel_conversion_axis' types.util.correctType(1, 'int32') 'data_unit' 'volts'} varargin];
         obj = obj@types.core.TimeSeries(varargin{:});
         
         
@@ -51,84 +51,20 @@ methods
         val = types.util.checkDtype('channel_conversion', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
         validshapes = {[Inf]};
         types.util.checkDims(valsz, validshapes);
     end
-    function val = validate_comments(obj, val)
-        val = types.util.checkDtype('comments', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
-    end
     function val = validate_data(obj, val)
         val = types.util.checkDtype('data', 'numeric', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf,Inf], [Inf,Inf], [Inf]};
-        types.util.checkDims(valsz, validshapes);
-    end
-    function val = validate_data_conversion(obj, val)
-        val = types.util.checkDtype('data_conversion', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
-    end
-    function val = validate_data_resolution(obj, val)
-        val = types.util.checkDtype('data_resolution', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
-    end
-    function val = validate_description(obj, val)
-        val = types.util.checkDtype('description', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
+        validshapes = {[Inf], [Inf Inf], [Inf Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_electrodes(obj, val)

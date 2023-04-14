@@ -63,17 +63,6 @@ methods
     
     function val = validate_detection_method(obj, val)
         val = types.util.checkDtype('detection_method', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_source_electricalseries(obj, val)
         val = types.util.checkDtype('source_electricalseries', 'types.core.ElectricalSeries', val);
@@ -82,10 +71,6 @@ methods
         val = types.util.checkDtype('source_idx', 'int32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -96,10 +81,6 @@ methods
         val = types.util.checkDtype('times', 'float64', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end

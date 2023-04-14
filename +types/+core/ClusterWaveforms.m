@@ -58,44 +58,25 @@ methods
     end
     function val = validate_waveform_filtering(obj, val)
         val = types.util.checkDtype('waveform_filtering', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_waveform_mean(obj, val)
         val = types.util.checkDtype('waveform_mean', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf]};
+        validshapes = {[Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_waveform_sd(obj, val)
         val = types.util.checkDtype('waveform_sd', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf]};
+        validshapes = {[Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     %% EXPORT

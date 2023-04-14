@@ -246,435 +246,143 @@ methods
         val = types.util.checkDtype('axis_1_phase_map', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf]};
+        validshapes = {[Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_1_phase_map_dimension(obj, val)
         val = types.util.checkDtype('axis_1_phase_map_dimension', 'int32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_1_phase_map_field_of_view(obj, val)
         val = types.util.checkDtype('axis_1_phase_map_field_of_view', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_1_phase_map_unit(obj, val)
         val = types.util.checkDtype('axis_1_phase_map_unit', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_1_power_map(obj, val)
         val = types.util.checkDtype('axis_1_power_map', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf]};
+        validshapes = {[Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_1_power_map_dimension(obj, val)
         val = types.util.checkDtype('axis_1_power_map_dimension', 'int32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_1_power_map_field_of_view(obj, val)
         val = types.util.checkDtype('axis_1_power_map_field_of_view', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_1_power_map_unit(obj, val)
         val = types.util.checkDtype('axis_1_power_map_unit', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_2_phase_map(obj, val)
         val = types.util.checkDtype('axis_2_phase_map', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf]};
+        validshapes = {[Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_2_phase_map_dimension(obj, val)
         val = types.util.checkDtype('axis_2_phase_map_dimension', 'int32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_2_phase_map_field_of_view(obj, val)
         val = types.util.checkDtype('axis_2_phase_map_field_of_view', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_2_phase_map_unit(obj, val)
         val = types.util.checkDtype('axis_2_phase_map_unit', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_2_power_map(obj, val)
         val = types.util.checkDtype('axis_2_power_map', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf]};
+        validshapes = {[Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_2_power_map_dimension(obj, val)
         val = types.util.checkDtype('axis_2_power_map_dimension', 'int32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_2_power_map_field_of_view(obj, val)
         val = types.util.checkDtype('axis_2_power_map_field_of_view', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_2_power_map_unit(obj, val)
         val = types.util.checkDtype('axis_2_power_map_unit', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_axis_descriptions(obj, val)
         val = types.util.checkDtype('axis_descriptions', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_focal_depth_image(obj, val)
         val = types.util.checkDtype('focal_depth_image', 'uint16', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf]};
+        validshapes = {[Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_focal_depth_image_bits_per_pixel(obj, val)
         val = types.util.checkDtype('focal_depth_image_bits_per_pixel', 'int32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_focal_depth_image_dimension(obj, val)
         val = types.util.checkDtype('focal_depth_image_dimension', 'int32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_focal_depth_image_field_of_view(obj, val)
         val = types.util.checkDtype('focal_depth_image_field_of_view', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_focal_depth_image_focal_depth(obj, val)
         val = types.util.checkDtype('focal_depth_image_focal_depth', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_focal_depth_image_format(obj, val)
         val = types.util.checkDtype('focal_depth_image_format', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_sign_map(obj, val)
         val = types.util.checkDtype('sign_map', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf]};
+        validshapes = {[Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_sign_map_dimension(obj, val)
         val = types.util.checkDtype('sign_map_dimension', 'int32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_sign_map_field_of_view(obj, val)
         val = types.util.checkDtype('sign_map_field_of_view', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_vasculature_image(obj, val)
         val = types.util.checkDtype('vasculature_image', 'uint16', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
-        validshapes = {[Inf,Inf]};
+        validshapes = {[Inf Inf]};
         types.util.checkDims(valsz, validshapes);
     end
     function val = validate_vasculature_image_bits_per_pixel(obj, val)
         val = types.util.checkDtype('vasculature_image_bits_per_pixel', 'int32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_vasculature_image_dimension(obj, val)
         val = types.util.checkDtype('vasculature_image_dimension', 'int32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_vasculature_image_field_of_view(obj, val)
         val = types.util.checkDtype('vasculature_image_field_of_view', 'float32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[2]};
-        types.util.checkDims(valsz, validshapes);
     end
     function val = validate_vasculature_image_format(obj, val)
         val = types.util.checkDtype('vasculature_image_format', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
     end
     %% EXPORT
     function refs = export(obj, fid, fullpath, refs)
@@ -778,7 +486,7 @@ methods
             if startsWith(class(obj.axis_descriptions), 'types.untyped.')
                 refs = obj.axis_descriptions.export(fid, [fullpath '/axis_descriptions'], refs);
             elseif ~isempty(obj.axis_descriptions)
-                io.writeDataset(fid, [fullpath '/axis_descriptions'], obj.axis_descriptions);
+                io.writeDataset(fid, [fullpath '/axis_descriptions'], obj.axis_descriptions, 'forceArray');
             end
         else
             error('Property `axis_descriptions` is required in `%s`.', fullpath);

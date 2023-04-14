@@ -1,5 +1,5 @@
 classdef Container < types.untyped.MetaClass & types.untyped.GroupClass
-% CONTAINER An abstract data type for a group storing collections of data and metadata. Base type for all data and metadata containers.
+% CONTAINER An abstract data type for a generic container storing collections of data and metadata. Base type for all data and metadata containers.
 
 
 

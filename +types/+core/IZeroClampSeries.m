@@ -7,7 +7,6 @@ methods
     function obj = IZeroClampSeries(varargin)
         % IZEROCLAMPSERIES Constructor for IZeroClampSeries
         %     obj = IZEROCLAMPSERIES(parentname1,parentvalue1,..,parentvalueN,parentargN,name1,value1,...,nameN,valueN)
-        varargin = [{'comments' 'no comments' 'description' 'no description'} varargin];
         obj = obj@types.core.CurrentClampSeries(varargin{:});
         if strcmp(class(obj), 'types.core.IZeroClampSeries')
             types.util.checkUnset(obj, unique(varargin(1:2:end)));
@@ -21,10 +20,6 @@ methods
         val = types.util.checkDtype('bias_current', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -35,10 +30,6 @@ methods
         val = types.util.checkDtype('bridge_balance', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
@@ -49,66 +40,6 @@ methods
         val = types.util.checkDtype('capacitance_compensation', 'float32', val);
         if isa(val, 'types.untyped.DataStub')
             valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
-    end
-    function val = validate_comments(obj, val)
-        val = types.util.checkDtype('comments', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
-    end
-    function val = validate_description(obj, val)
-        val = types.util.checkDtype('description', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
-    end
-    function val = validate_stimulus_description(obj, val)
-        val = types.util.checkDtype('stimulus_description', 'char', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
-        else
-            valsz = size(val);
-        end
-        validshapes = {[1]};
-        types.util.checkDims(valsz, validshapes);
-    end
-    function val = validate_sweep_number(obj, val)
-        val = types.util.checkDtype('sweep_number', 'uint32', val);
-        if isa(val, 'types.untyped.DataStub')
-            valsz = val.dims;
-        elseif istable(val)
-            valsz = height(val);
-        elseif ischar(val)
-            valsz = size(val, 1);
         else
             valsz = size(val);
         end
