@@ -17,11 +17,11 @@ set(0, 'DefaultFigureRenderer', 'painters')
 Task = 'Aversion';
 
 % Your path to the Database
-Path2Data = '/Volumes/labs/dmclab/Pierre/NPX_Database/mPFC/Aversion/';
+Path2Data = '/Volumes/T7/NPX_Database/mPFC/Aversion/';
 D = dir([Path2Data '*.nwb']);
 
 % Your path to analysis folder
-BasePath = '/Users/pielem/Documents/MATLAB/';
+BasePath = '/Users/pierre/Documents/MATLAB/';
 Path2Ana = [BasePath 'Esr1_NPX_code/analysis/'];
 
 % to save csv 
@@ -378,14 +378,14 @@ set(gcf,'units','points','position',[1000,2000,500,550])
 
 %Save csv data
 % tuning scores
-        m = TS(2,:);
-        m2 = TS(4,:);
-        id = 1 : size(m,2);
-        sig = T(2,:);
-        values = [id' m' m2' sig'];
-        Table = array2table(values);
-        Table.Properties.VariableNames(1:4) = {'id','tuning score Opto','tuning score Air puff','significance'};
-        writetable(Table,[dest '/tuning_scores_' Genotype '.csv'],'Delimiter',',')
+%         m = TS(2,:);
+%         m2 = TS(4,:);
+%         id = 1 : size(m,2);
+%         sig = T(2,:);
+%         values = [id' m' m2' sig'];
+%         Table = array2table(values);
+%         Table.Properties.VariableNames(1:4) = {'id','tuning score Opto','tuning score Air puff','significance'};
+%         writetable(Table,[dest '/tuning_scores_' Genotype '.csv'],'Delimiter',',')
 
 end
 
